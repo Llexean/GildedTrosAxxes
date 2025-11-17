@@ -75,4 +75,18 @@ class GildedTros {
             }
         }
     }
+
+    private void increaseQuality(int itemIdx, int amount) {
+        items[itemIdx].quality += amount;
+        if (items[itemIdx].quality > 50) {
+            items[itemIdx].quality = 50;
+        }
+    }
+
+    private void decreaseQuality(int itemIdx, int amount) {
+        items[itemIdx].quality -= amount;
+        if (items[itemIdx].quality < 0) {
+            items[itemIdx].quality = 0;
+        }
+    }
 }
