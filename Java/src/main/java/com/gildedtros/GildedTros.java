@@ -78,6 +78,12 @@ class GildedTros {
                 items[i].sellIn = 0;
                 continue;
             }
+
+            if (items[i].name.equals("Good Wine")) {
+                increaseQuality(i, 1);
+            } else {
+                decreaseQuality(i, 1);
+            }
         }
     }
 
