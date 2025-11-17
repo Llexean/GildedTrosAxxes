@@ -5,7 +5,12 @@ import java.util.Arrays;
 class GildedTros {
     Item[] items;
 
-    private final String[] legendaryNameList = {"B-DAWG Keychain"};
+    private static final String[] LEGENDARY_NAME_LIST = {"B-DAWG Keychain"};
+
+    private static final int COMMON_ITEMS_MAX_QUALITY = 50;
+    private static final int COMMON_ITEMS_MIN_QUALITY = 0;
+
+    private static final int LEGENDARY_ITEMS_QUALITY = 80;
 
     public GildedTros(Item[] items) {
         this.items = items;
@@ -68,8 +73,8 @@ class GildedTros {
 
     public void updateQualityV2() {
         for (int i = 0; i < items.length; i++) {
-            if(Arrays.asList(legendaryNameList).contains(items[i].name)) {
-                items[i].quality = 80;
+            if(Arrays.asList(LEGENDARY_NAME_LIST).contains(items[i].name)) {
+                items[i].quality = LEGENDARY_ITEMS_QUALITY;
                 items[i].sellIn = 0;
                 continue;
             }
@@ -78,15 +83,15 @@ class GildedTros {
 
     private void increaseQuality(int itemIdx, int amount) {
         items[itemIdx].quality += amount;
-        if (items[itemIdx].quality > 50) {
-            items[itemIdx].quality = 50;
+        if (items[itemIdx].quality > COMMON_ITEMS_MAX_QUALITY) {
+            items[itemIdx].quality = COMMON_ITEMS_MAX_QUALITY;
         }
     }
 
     private void decreaseQuality(int itemIdx, int amount) {
         items[itemIdx].quality -= amount;
-        if (items[itemIdx].quality < 0) {
-            items[itemIdx].quality = 0;
+        if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
+            items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
         }
     }
 }
