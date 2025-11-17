@@ -82,13 +82,10 @@ class GildedTros {
 
             if (items[i].name.equals("Good Wine")) {
                 increaseQuality(i, 1);
+            } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
+                decreaseQuality(i, 2);
             } else {
-                if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
-                    decreaseQuality(i, 2);
-                }
-                else {
-                    decreaseQuality(i, 1);
-                }
+                decreaseQuality(i, 1);
             }
 
             items[i].sellIn--;
@@ -104,7 +101,7 @@ class GildedTros {
     }
 
     private void decreaseQuality(int itemIdx, int amount) {
-        items[itemIdx].quality -= amount * items[itemIdx].sellIn <= 0 ? 2 : 1;
+        items[itemIdx].quality -= amount * (items[itemIdx].sellIn <= 0 ? 2 : 1);
 
         if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
