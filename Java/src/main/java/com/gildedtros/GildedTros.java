@@ -6,6 +6,7 @@ class GildedTros {
     Item[] items;
 
     private static final String[] LEGENDARY_NAME_LIST = {"B-DAWG Keychain"};
+    private static final String[] SMELLY_NAME_LIST = {"Duplicate Code", "Long Methods", "Ugly Variable Names"};
 
     private static final int COMMON_ITEMS_MAX_QUALITY = 50;
     private static final int COMMON_ITEMS_MIN_QUALITY = 0;
@@ -82,7 +83,12 @@ class GildedTros {
             if (items[i].name.equals("Good Wine")) {
                 increaseQuality(i, 1);
             } else {
-                decreaseQuality(i, 1);
+                if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
+                    decreaseQuality(i, 2);
+                }
+                else {
+                    decreaseQuality(i, 1);
+                }
             }
         }
     }
