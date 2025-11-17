@@ -90,6 +90,8 @@ class GildedTros {
                     decreaseQuality(i, 1);
                 }
             }
+
+            items[i].sellIn--;
         }
     }
 
