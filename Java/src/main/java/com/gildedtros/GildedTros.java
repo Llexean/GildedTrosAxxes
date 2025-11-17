@@ -1,7 +1,11 @@
 package com.gildedtros;
 
+import java.util.Arrays;
+
 class GildedTros {
     Item[] items;
+
+    private final String[] legendaryNameList = {"B-DAWG Keychain"};
 
     public GildedTros(Item[] items) {
         this.items = items;
@@ -63,6 +67,12 @@ class GildedTros {
     }
 
     public void updateQualityV2() {
-
+        for (int i = 0; i < items.length; i++) {
+            if(Arrays.asList(legendaryNameList).contains(items[i].name)) {
+                items[i].quality = 80;
+                items[i].sellIn = 0;
+                continue;
+            }
+        }
     }
 }
