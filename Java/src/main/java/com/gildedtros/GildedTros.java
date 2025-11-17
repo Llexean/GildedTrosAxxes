@@ -80,12 +80,24 @@ class GildedTros {
                 continue;
             }
 
-            if (items[i].name.equals("Good Wine")) {
-                increaseQuality(i, 1);
-            } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
-                decreaseQuality(i, 2);
+            if (items[i].name.contains("Backstage passes")) {
+                if (items[i].sellIn == 0) {
+                    items[i].quality = COMMON_ITEMS_MIN_QUALITY;
+                } else if (items[i].sellIn <= 5) {
+                    increaseQuality(i, 3);
+                } else if (items[i].sellIn <= 10) {
+                    increaseQuality(i, 2);
+                } else {
+                    increaseQuality(i, 1);
+                }
             } else {
-                decreaseQuality(i, 1);
+                if (items[i].name.equals("Good Wine")) {
+                    increaseQuality(i, 1);
+                } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
+                    decreaseQuality(i, 2);
+                } else {
+                    decreaseQuality(i, 1);
+                }
             }
 
             items[i].sellIn--;
