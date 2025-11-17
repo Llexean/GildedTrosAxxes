@@ -61,4 +61,8 @@ class GildedTros {
             }
         }
     }
+
+    public void updateQualityV2() {
+
+    }
 }
