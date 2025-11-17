@@ -83,13 +83,15 @@ class GildedTros {
 
     private void increaseQuality(int itemIdx, int amount) {
         items[itemIdx].quality += amount;
+
         if (items[itemIdx].quality > COMMON_ITEMS_MAX_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MAX_QUALITY;
         }
     }
 
     private void decreaseQuality(int itemIdx, int amount) {
-        items[itemIdx].quality -= amount;
+        items[itemIdx].quality -= amount * items[itemIdx].sellIn <= 0 ? 2 : 1;
+
         if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
         }
