@@ -82,13 +82,7 @@ class GildedTros {
             if (items[i].name.contains("Backstage passes")) {
                 updateBackstagePassesItem(i);
             } else {
-                if (items[i].name.equals("Good Wine")) {
-                    increaseQuality(i, 1);
-                } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[i].name)) {
-                    decreaseQuality(i, 2);
-                } else {
-                    decreaseQuality(i, 1);
-                }
+                updateCommonItem(i);
             }
 
             items[i].sellIn--;
@@ -112,19 +106,34 @@ class GildedTros {
         }
     }
 
+    private void updateCommonItem(int itemIdx) {
+        if (items[itemIdx].name.equals("Good Wine")) {
+            increaseQuality(itemIdx, 1);
+        } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[itemIdx].name)) {
+            decreaseQuality(itemIdx, 2);
+        } else {
+            decreaseQuality(itemIdx, 1);
+        }
+    }
+
     private void increaseQuality(int itemIdx, int amount) {
         items[itemIdx].quality += amount;
+        clampMaxQuality(itemIdx);
+    }
 
+    private void decreaseQuality(int itemIdx, int amount) {
+        final int sellDateMultiplier = items[itemIdx].sellIn <= 0 ? 2 : 1;
+        items[itemIdx].quality -= amount * sellDateMultiplier;
+        clampMinQuality(itemIdx);
+    }
+
+    private void clampMaxQuality(int itemIdx) {
         if (items[itemIdx].quality > COMMON_ITEMS_MAX_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MAX_QUALITY;
         }
     }
 
-    private void decreaseQuality(int itemIdx, int amount) {
-        final int sellDateMultiplier = items[itemIdx].sellIn <= 0 ? 2 : 1;
-
-        items[itemIdx].quality -= amount * sellDateMultiplier;
-
+    private void clampMinQuality(int itemIdx) {
         if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
         }
