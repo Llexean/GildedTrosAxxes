@@ -75,21 +75,12 @@ class GildedTros {
     public void updateQualityV2() {
         for (int i = 0; i < items.length; i++) {
             if(Arrays.asList(LEGENDARY_NAME_LIST).contains(items[i].name)) {
-                items[i].quality = LEGENDARY_ITEMS_QUALITY;
-                items[i].sellIn = 0;
+                updateLegendaryItem(i);
                 continue;
             }
 
             if (items[i].name.contains("Backstage passes")) {
-                if (items[i].sellIn == 0) {
-                    items[i].quality = COMMON_ITEMS_MIN_QUALITY;
-                } else if (items[i].sellIn <= 5) {
-                    increaseQuality(i, 3);
-                } else if (items[i].sellIn <= 10) {
-                    increaseQuality(i, 2);
-                } else {
-                    increaseQuality(i, 1);
-                }
+                updateBackstagePassesItem(i);
             } else {
                 if (items[i].name.equals("Good Wine")) {
                     increaseQuality(i, 1);
@@ -104,6 +95,23 @@ class GildedTros {
         }
     }
 
+    private void updateLegendaryItem(int itemIdx) {
+        items[itemIdx].quality = LEGENDARY_ITEMS_QUALITY;
+        items[itemIdx].sellIn = 0;
+    }
+
+    private void updateBackstagePassesItem(int itemIdx) {
+        if (items[itemIdx].sellIn == 0) {
+            items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
+        } else if (items[itemIdx].sellIn <= 5) {
+            increaseQuality(itemIdx, 3);
+        } else if (items[itemIdx].sellIn <= 10) {
+            increaseQuality(itemIdx, 2);
+        } else {
+            increaseQuality(itemIdx, 1);
+        }
+    }
+
     private void increaseQuality(int itemIdx, int amount) {
         items[itemIdx].quality += amount;
 
@@ -113,7 +121,9 @@ class GildedTros {
     }
 
     private void decreaseQuality(int itemIdx, int amount) {
-        items[itemIdx].quality -= amount * (items[itemIdx].sellIn <= 0 ? 2 : 1);
+        final int sellDateMultiplier = items[itemIdx].sellIn <= 0 ? 2 : 1;
+
+        items[itemIdx].quality -= amount * sellDateMultiplier;
 
         if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
             items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
