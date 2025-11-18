@@ -73,69 +73,69 @@ class GildedTros {
     }
 
     public void updateQualityV2() {
-        for (int i = 0; i < items.length; i++) {
-            if(Arrays.asList(LEGENDARY_NAME_LIST).contains(items[i].name)) {
-                updateLegendaryItem(i);
+        for (Item item : items) {
+            if (Arrays.asList(LEGENDARY_NAME_LIST).contains(item.name)) {
+                updateLegendaryItem(item);
                 continue;
             }
 
-            if (items[i].name.contains("Backstage passes")) {
-                updateBackstagePassesItem(i);
+            if (item.name.contains("Backstage passes")) {
+                updateBackstagePassesItem(item);
             } else {
-                updateCommonItem(i);
+                updateCommonItem(item);
             }
 
-            items[i].sellIn--;
+            item.sellIn--;
         }
     }
 
-    private void updateLegendaryItem(int itemIdx) {
-        items[itemIdx].quality = LEGENDARY_ITEMS_QUALITY;
-        items[itemIdx].sellIn = 0;
+    private void updateLegendaryItem(Item item) {
+        item.quality = LEGENDARY_ITEMS_QUALITY;
+        item.sellIn = 0;
     }
 
-    private void updateBackstagePassesItem(int itemIdx) {
-        if (items[itemIdx].sellIn == 0) {
-            items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
-        } else if (items[itemIdx].sellIn <= 5) {
-            increaseQuality(itemIdx, 3);
-        } else if (items[itemIdx].sellIn <= 10) {
-            increaseQuality(itemIdx, 2);
+    private void updateBackstagePassesItem(Item item) {
+        if (item.sellIn == 0) {
+            item.quality = COMMON_ITEMS_MIN_QUALITY;
+        } else if (item.sellIn <= 5) {
+            increaseQuality(item, 3);
+        } else if (item.sellIn <= 10) {
+            increaseQuality(item, 2);
         } else {
-            increaseQuality(itemIdx, 1);
+            increaseQuality(item, 1);
         }
     }
 
-    private void updateCommonItem(int itemIdx) {
-        if (items[itemIdx].name.equals("Good Wine")) {
-            increaseQuality(itemIdx, 1);
-        } else if (Arrays.asList(SMELLY_NAME_LIST).contains(items[itemIdx].name)) {
-            decreaseQuality(itemIdx, 2);
+    private void updateCommonItem(Item item) {
+        if (item.name.equals("Good Wine")) {
+            increaseQuality(item, 1);
+        } else if (Arrays.asList(SMELLY_NAME_LIST).contains(item.name)) {
+            decreaseQuality(item, 2);
         } else {
-            decreaseQuality(itemIdx, 1);
+            decreaseQuality(item, 1);
         }
     }
 
-    private void increaseQuality(int itemIdx, int amount) {
-        items[itemIdx].quality += amount;
-        clampMaxQuality(itemIdx);
+    private void increaseQuality(Item item, int amount) {
+        item.quality += amount;
+        clampMaxQuality(item);
     }
 
-    private void decreaseQuality(int itemIdx, int amount) {
-        final int sellDateMultiplier = items[itemIdx].sellIn <= 0 ? 2 : 1;
-        items[itemIdx].quality -= amount * sellDateMultiplier;
-        clampMinQuality(itemIdx);
+    private void decreaseQuality(Item item, int amount) {
+        final int sellDateMultiplier = item.sellIn <= 0 ? 2 : 1;
+        item.quality -= amount * sellDateMultiplier;
+        clampMinQuality(item);
     }
 
-    private void clampMaxQuality(int itemIdx) {
-        if (items[itemIdx].quality > COMMON_ITEMS_MAX_QUALITY) {
-            items[itemIdx].quality = COMMON_ITEMS_MAX_QUALITY;
+    private void clampMaxQuality(Item item) {
+        if (item.quality > COMMON_ITEMS_MAX_QUALITY) {
+            item.quality = COMMON_ITEMS_MAX_QUALITY;
         }
     }
 
-    private void clampMinQuality(int itemIdx) {
-        if (items[itemIdx].quality < COMMON_ITEMS_MIN_QUALITY) {
-            items[itemIdx].quality = COMMON_ITEMS_MIN_QUALITY;
+    private void clampMinQuality(Item item) {
+        if (item.quality < COMMON_ITEMS_MIN_QUALITY) {
+            item.quality = COMMON_ITEMS_MIN_QUALITY;
         }
     }
 }
