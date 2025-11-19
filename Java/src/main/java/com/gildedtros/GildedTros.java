@@ -63,23 +63,19 @@ class GildedTros {
 
     private void increaseQuality(Item item, int amount) {
         item.quality += amount;
-        clampMaxQuality(item);
+        clampQuality(item);
     }
 
     private void decreaseQuality(Item item, int amount) {
         final int sellDateMultiplier = item.sellIn <= 0 ? 2 : 1;
         item.quality -= amount * sellDateMultiplier;
-        clampMinQuality(item);
+        clampQuality(item);
     }
 
-    private void clampMaxQuality(Item item) {
+    private void clampQuality(Item item) {
         if (item.quality > COMMON_ITEMS_MAX_QUALITY) {
             item.quality = COMMON_ITEMS_MAX_QUALITY;
-        }
-    }
-
-    private void clampMinQuality(Item item) {
-        if (item.quality < COMMON_ITEMS_MIN_QUALITY) {
+        } else if (item.quality < COMMON_ITEMS_MIN_QUALITY) {
             item.quality = COMMON_ITEMS_MIN_QUALITY;
         }
     }
