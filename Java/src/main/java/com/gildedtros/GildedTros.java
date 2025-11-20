@@ -43,7 +43,7 @@ class GildedTros {
     }
 
     private void updateBackstagePassesItem(Item item) {
-        if (item.sellIn == 0) {
+        if (item.sellIn <= 0) {
             item.quality = COMMON_ITEMS_MIN_QUALITY;
         } else if (item.sellIn <= 5) {
             increaseQuality(item, 3);
