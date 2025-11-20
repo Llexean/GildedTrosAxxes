@@ -5,13 +5,16 @@ import java.util.Arrays;
 class GildedTros {
     Item[] items;
 
-    private static final String[] LEGENDARY_NAME_LIST = {"B-DAWG Keychain"};
-    private static final String[] SMELLY_NAME_LIST = {"Duplicate Code", "Long Methods", "Ugly Variable Names"};
+    static final String[] LEGENDARY_NAME_LIST = {"B-DAWG Keychain"};
+    static final String[] SMELLY_NAME_LIST = {"Duplicate Code", "Long Methods", "Ugly Variable Names"};
 
-    private static final int COMMON_ITEMS_MAX_QUALITY = 50;
-    private static final int COMMON_ITEMS_MIN_QUALITY = 0;
+    static final String GOOD_WINE_ITEM_NAME = "Good Wine";
+    static final String BACKSTAGE_PASSES_ITEM_PREFIX = "Backstage passes for ";
 
-    private static final int LEGENDARY_ITEMS_QUALITY = 80;
+    static final int COMMON_ITEMS_MAX_QUALITY = 50;
+    static final int COMMON_ITEMS_MIN_QUALITY = 0;
+
+    static final int LEGENDARY_ITEMS_QUALITY = 80;
 
     public GildedTros(Item[] items) {
         this.items = items;
@@ -24,7 +27,7 @@ class GildedTros {
                 continue;
             }
 
-            if (item.name.contains("Backstage passes")) {
+            if (item.name.contains(BACKSTAGE_PASSES_ITEM_PREFIX)) {
                 updateBackstagePassesItem(item);
             } else {
                 updateCommonItem(item);
@@ -52,7 +55,7 @@ class GildedTros {
     }
 
     private void updateCommonItem(Item item) {
-        if (item.name.equals("Good Wine")) {
+        if (item.name.equals(GOOD_WINE_ITEM_NAME)) {
             increaseQuality(item, 1);
         } else if (Arrays.asList(SMELLY_NAME_LIST).contains(item.name)) {
             decreaseQuality(item, 2);
