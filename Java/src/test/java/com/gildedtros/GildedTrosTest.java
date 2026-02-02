@@ -11,7 +11,7 @@ class GildedTrosTest {
 
     @Test
     void commonItemQualityDecrease() {
-        Item[] items = new Item[] { new Item(COMMON_ITEM_NAME, 5, 50) };
+        CommonItem[] items = new CommonItem[] { new CommonItem(COMMON_ITEM_NAME, 5, 50) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(COMMON_ITEM_NAME, app.items[0].name);
@@ -22,7 +22,7 @@ class GildedTrosTest {
 
     @Test
     void commonItemQualityDecreaseTwiceIfSellDatePassed() {
-        Item[] items = new Item[] { new Item(COMMON_ITEM_NAME, 0, 50) };
+        CommonItem[] items = new CommonItem[] { new CommonItem(COMMON_ITEM_NAME, 0, 50) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(COMMON_ITEM_NAME, app.items[0].name);
@@ -32,7 +32,7 @@ class GildedTrosTest {
 
     @Test
     void commonItemQualityIsNeverOver50() {
-        Item[] items = new Item[] { new Item(COMMON_ITEM_NAME, 5, 100) };
+        CommonItem[] items = new CommonItem[] { new CommonItem(COMMON_ITEM_NAME, 5, 100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(COMMON_ITEM_NAME, app.items[0].name);
@@ -42,7 +42,7 @@ class GildedTrosTest {
 
     @Test
     void commonItemQualityIsNeverNegative() {
-        Item[] items = new Item[] { new Item(COMMON_ITEM_NAME, 0, -100) };
+        CommonItem[] items = new CommonItem[] { new CommonItem(COMMON_ITEM_NAME, 0, -100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(COMMON_ITEM_NAME, app.items[0].name);
@@ -52,7 +52,7 @@ class GildedTrosTest {
 
     @Test
     void goodWineQualityIncreasesTheOlderItGets() {
-        Item[] items = new Item[] { new Item(GildedTros.GOOD_WINE_ITEM_NAME, 5, 0) };
+        GoodWineItem[] items = new GoodWineItem[] { new GoodWineItem(GildedTros.GOOD_WINE_ITEM_NAME, 5, 0) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.GOOD_WINE_ITEM_NAME, items[0].name);
@@ -62,7 +62,7 @@ class GildedTrosTest {
 
     @Test
     void goodWineItemQualityIsNeverOver50() {
-        Item[] items = new Item[] { new Item(GildedTros.GOOD_WINE_ITEM_NAME, 5, 100) };
+        CommonItem[] items = new CommonItem[] { new GoodWineItem(GildedTros.GOOD_WINE_ITEM_NAME, 5, 100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.GOOD_WINE_ITEM_NAME, app.items[0].name);
@@ -72,7 +72,7 @@ class GildedTrosTest {
 
     @Test
     void goodWineItemQualityIsNeverNegative() {
-        Item[] items = new Item[] { new Item(GildedTros.GOOD_WINE_ITEM_NAME, 5, -100) };
+        CommonItem[] items = new CommonItem[] { new GoodWineItem(GildedTros.GOOD_WINE_ITEM_NAME, 5, -100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.GOOD_WINE_ITEM_NAME, app.items[0].name);
@@ -82,7 +82,7 @@ class GildedTrosTest {
 
     @Test
     void legendaryItemSellInIsAlways0() {
-        Item[] items = new Item[] { new Item(GildedTros.LEGENDARY_NAME_LIST[0], 5, GildedTros.LEGENDARY_ITEMS_QUALITY) };
+        CommonItem[] items = new CommonItem[] { new LegendaryItem(GildedTros.LEGENDARY_NAME_LIST[0], 5, GildedTros.LEGENDARY_ITEMS_QUALITY) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.LEGENDARY_NAME_LIST[0], app.items[0].name);
@@ -92,7 +92,7 @@ class GildedTrosTest {
 
     @Test
     void legendaryItemQualityIsAlways80() {
-        Item[] items = new Item[] { new Item(GildedTros.LEGENDARY_NAME_LIST[0], 0, 100) };
+        CommonItem[] items = new CommonItem[] { new LegendaryItem(GildedTros.LEGENDARY_NAME_LIST[0], 0, 100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.LEGENDARY_NAME_LIST[0], app.items[0].name);
@@ -102,7 +102,7 @@ class GildedTrosTest {
 
     @Test
     void backStagePassesQualityIncreaseBy2WhenSellInDateIs10OrLess() {
-        Item[] items = new Item[] { new Item(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 10, GildedTros.ITEM_MIN_QUALITY) };
+        CommonItem[] items = new CommonItem[] { new BackstagePassItem(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 10, GildedTros.ITEM_MIN_QUALITY) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, app.items[0].name);
@@ -112,7 +112,7 @@ class GildedTrosTest {
 
     @Test
     void backStagePassesQualityIncreasesBy3WhenSellDateIs5OrLess() {
-        Item[] items = new Item[] { new Item(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, GildedTros.ITEM_MIN_QUALITY) };
+        CommonItem[] items = new CommonItem[] { new BackstagePassItem(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, GildedTros.ITEM_MIN_QUALITY) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, app.items[0].name);
@@ -122,7 +122,7 @@ class GildedTrosTest {
 
     @Test
     void backStagePassesQualityResetsTo0WhenSellDateIsEqualToOrLessThan0() {
-        Item[] items = new Item[] { new Item(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 0, GildedTros.ITEM_MAX_QUALITY) };
+        CommonItem[] items = new CommonItem[] { new BackstagePassItem(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 0, GildedTros.ITEM_MAX_QUALITY) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, app.items[0].name);
@@ -132,7 +132,7 @@ class GildedTrosTest {
 
     @Test
     void backStagePassesQualityIsNeverOver50() {
-        Item[] items = new Item[] { new Item(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, 100) };
+        CommonItem[] items = new CommonItem[] { new BackstagePassItem(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, 100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, app.items[0].name);
@@ -142,7 +142,7 @@ class GildedTrosTest {
 
     @Test
     void backStagePassesQualityIsNeverNegative() {
-        Item[] items = new Item[] { new Item(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, -100) };
+        CommonItem[] items = new CommonItem[] { new BackstagePassItem(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, 5, -100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(GildedTros.BACKSTAGE_PASSES_ITEM_PREFIX + BACKSTAGE_PASS_ITEM_NAME, app.items[0].name);
@@ -152,7 +152,7 @@ class GildedTrosTest {
 
     @Test
     void smellyItemQualityDecrease() {
-        Item[] items = new Item[] { new Item(GildedTros.SMELLY_NAME_LIST[0], 5, 50) };
+        CommonItem[] items = new CommonItem[] { new SmellyItem(GildedTros.SMELLY_NAME_LIST[0], 5, 50) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(4, app.items[0].sellIn);
@@ -161,7 +161,7 @@ class GildedTrosTest {
 
     @Test
     void smellyItemQualityDecreaseTwiceIfSellDatePassed() {
-        Item[] items = new Item[] { new Item(GildedTros.SMELLY_NAME_LIST[0], 0, 50) };
+        CommonItem[] items = new CommonItem[] { new SmellyItem(GildedTros.SMELLY_NAME_LIST[0], 0, 50) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(-1, app.items[0].sellIn);
@@ -170,7 +170,7 @@ class GildedTrosTest {
 
     @Test
     void smellyItemQualityIsNeverOver50() {
-        Item[] items = new Item[] { new Item(GildedTros.SMELLY_NAME_LIST[0], 5, 100) };
+        CommonItem[] items = new CommonItem[] { new SmellyItem(GildedTros.SMELLY_NAME_LIST[0], 5, 100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(4, app.items[0].sellIn);
@@ -179,7 +179,7 @@ class GildedTrosTest {
 
     @Test
     void smellyItemQualityIsNeverNegative() {
-        Item[] items = new Item[] { new Item(GildedTros.SMELLY_NAME_LIST[0], 0, -100) };
+        CommonItem[] items = new CommonItem[] { new SmellyItem(GildedTros.SMELLY_NAME_LIST[0], 0, -100) };
         GildedTros app = new GildedTros(items);
         app.updateQuality();
         assertEquals(-1, app.items[0].sellIn);
