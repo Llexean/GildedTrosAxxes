@@ -11,12 +11,13 @@ class GildedTros {
     static final String GOOD_WINE_ITEM_NAME = "Good Wine";
     static final String BACKSTAGE_PASSES_ITEM_PREFIX = "Backstage passes for ";
 
-    static final int COMMON_ITEMS_MAX_QUALITY = 50;
-    static final int COMMON_ITEMS_MIN_QUALITY = 0;
+    static final int ITEM_MAX_QUALITY = 50;
+    static final int ITEM_MIN_QUALITY = 0;
 
     static final int LEGENDARY_ITEMS_QUALITY = 80;
 
     public GildedTros(Item[] items) {
+        Arrays.stream(items).forEach(this::clampQuality);
         this.items = items;
     }
 
@@ -44,7 +45,7 @@ class GildedTros {
 
     private void updateBackstagePassesItem(Item item) {
         if (item.sellIn <= 0) {
-            item.quality = COMMON_ITEMS_MIN_QUALITY;
+            item.quality = ITEM_MIN_QUALITY;
         } else if (item.sellIn <= 5) {
             increaseQuality(item, 3);
         } else if (item.sellIn <= 10) {
@@ -76,10 +77,10 @@ class GildedTros {
     }
 
     private void clampQuality(Item item) {
-        if (item.quality > COMMON_ITEMS_MAX_QUALITY) {
-            item.quality = COMMON_ITEMS_MAX_QUALITY;
-        } else if (item.quality < COMMON_ITEMS_MIN_QUALITY) {
-            item.quality = COMMON_ITEMS_MIN_QUALITY;
+        if (item.quality > ITEM_MAX_QUALITY) {
+            item.quality = ITEM_MAX_QUALITY;
+        } else if (item.quality < ITEM_MIN_QUALITY) {
+            item.quality = ITEM_MIN_QUALITY;
         }
     }
 }
