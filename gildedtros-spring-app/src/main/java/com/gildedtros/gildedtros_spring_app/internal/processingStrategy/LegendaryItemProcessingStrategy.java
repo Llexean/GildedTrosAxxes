@@ -1,4 +1,4 @@
-package com.gildedtros.gildedtros_spring_app.internal.updater;
+package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LegendaryItemUpdater extends CommonItemUpdater {
+public class LegendaryItemProcessingStrategy extends CommonItemProcessingStrategy {
     static final int LEGENDARY_ITEM_FIXED_QUALITY = 80;
     static final int LEGENDARY_ITEM_FIXED_SELLIN = 0;
 

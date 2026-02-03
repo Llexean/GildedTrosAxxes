@@ -1,4 +1,4 @@
-package com.gildedtros.gildedtros_spring_app.internal.updater;
+package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class GoodWineItemUpdater extends CommonItemUpdater {
+public class GoodWineItemProcessingStrategy extends CommonItemProcessingStrategy {
     static final String[] GOOD_WINE_NAME_LIST = {"Good Wine"};
 
     @Override

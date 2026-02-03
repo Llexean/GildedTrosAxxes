@@ -1,4 +1,4 @@
-package com.gildedtros.gildedtros_spring_app.internal.updater;
+package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class CommonItemUpdater implements ItemUpdater {
+public class CommonItemProcessingStrategy implements ItemProcessingStrategy {
     static final int COMMON_ITEM_MAX_QUALITY = 50;
     static final int COMMON_ITEM_MIN_QUALITY = 0;
 
@@ -21,13 +21,13 @@ public class CommonItemUpdater implements ItemUpdater {
     @Override
     public Item validateOnCreate(ItemRequest itemRequest) {
         List<String> reservedNames = new ArrayList<>();
-        reservedNames.addAll(List.of(GoodWineItemUpdater.GOOD_WINE_NAME_LIST));
-        reservedNames.addAll(List.of(SmellyItemUpdater.SMELLY_ITEM_NAME_LIST));
-        reservedNames.addAll(List.of(LegendaryItemUpdater.LEGENDARY_NAMES_LIST));
+        reservedNames.addAll(List.of(GoodWineItemProcessingStrategy.GOOD_WINE_NAME_LIST));
+        reservedNames.addAll(List.of(SmellyItemProcessingStrategy.SMELLY_ITEM_NAME_LIST));
+        reservedNames.addAll(List.of(LegendaryItemProcessingStrategy.LEGENDARY_NAMES_LIST));
 
         if (reservedNames.contains(itemRequest.name())) {
             throw new IllegalArgumentException("Reserved names cannot be used for common item");
-        } else if (itemRequest.name().contains(BackstagePassItemUpdater.BACKSTAGE_PASSES_NAME_PREFIX)) {
+        } else if (itemRequest.name().contains(BackstagePassesItemProcessingStrategy.BACKSTAGE_PASSES_NAME_PREFIX)) {
             throw new IllegalArgumentException("Common name cannot be prefixed with valid backstage passes prefix");
         }
 

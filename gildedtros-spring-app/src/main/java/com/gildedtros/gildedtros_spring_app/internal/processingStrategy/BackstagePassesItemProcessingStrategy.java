@@ -1,11 +1,11 @@
-package com.gildedtros.gildedtros_spring_app.internal.updater;
+package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BackstagePassItemUpdater extends CommonItemUpdater {
+public class BackstagePassesItemProcessingStrategy extends CommonItemProcessingStrategy {
     static final String BACKSTAGE_PASSES_NAME_PREFIX = "Backstage passes for ";
 
     @Override

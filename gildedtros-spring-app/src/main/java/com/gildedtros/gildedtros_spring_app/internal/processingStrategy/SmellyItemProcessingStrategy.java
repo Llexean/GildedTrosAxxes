@@ -1,4 +1,4 @@
-package com.gildedtros.gildedtros_spring_app.internal.updater;
+package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class SmellyItemUpdater extends CommonItemUpdater {
+public class SmellyItemProcessingStrategy extends CommonItemProcessingStrategy {
     static final String[] SMELLY_ITEM_NAME_LIST = {"Duplicate Code", "Long Methods", "Ugly Variable Names"};
 
     @Override

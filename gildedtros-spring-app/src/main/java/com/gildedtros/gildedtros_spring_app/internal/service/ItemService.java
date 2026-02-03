@@ -3,7 +3,7 @@ package com.gildedtros.gildedtros_spring_app.internal.service;
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.repository.ItemRepository;
-import com.gildedtros.gildedtros_spring_app.internal.updaterfactory.ItemUpdaterFactory;
+import com.gildedtros.gildedtros_spring_app.internal.processingStrategyFactory.ItemProcessingStrategyFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
-    private final ItemUpdaterFactory itemUpdaterFactory;
+    private final ItemProcessingStrategyFactory itemProcessingStrategyFactory;
 
-    public ItemService(ItemRepository itemRepository, ItemUpdaterFactory itemUpdaterFactory) {
+    public ItemService(ItemRepository itemRepository, ItemProcessingStrategyFactory itemProcessingStrategyFactory) {
         this.itemRepository = itemRepository;
-        this.itemUpdaterFactory = itemUpdaterFactory;
+        this.itemProcessingStrategyFactory = itemProcessingStrategyFactory;
     }
 
     public List<Item> getAllItems() {
@@ -24,12 +24,12 @@ public class ItemService {
     }
 
     public Item createItem(ItemRequest itemRequest) {
-        return itemRepository.save(itemUpdaterFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
+        return itemRepository.save(itemProcessingStrategyFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
     }
 
     public void updateAllItems() {
         List<Item> items = getAllItems();
-        items.forEach((item) -> itemUpdaterFactory.get(item.getItemType()).updateQuality(item));
+        items.forEach((item) -> itemProcessingStrategyFactory.get(item.getItemType()).updateQuality(item));
         itemRepository.saveAll(items);
     }
 }
