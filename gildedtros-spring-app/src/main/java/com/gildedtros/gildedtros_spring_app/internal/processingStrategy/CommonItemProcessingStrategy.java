@@ -16,6 +16,7 @@ public class CommonItemProcessingStrategy implements ItemProcessingStrategy {
     public void updateQuality(Item item) {
         item.decreaseQuality(item.getSellIn() <= 0 ? 2 : 1);
         clampQuality(item);
+        item.decreaseSellIn();
     }
 
     @Override
@@ -42,7 +43,5 @@ public class CommonItemProcessingStrategy implements ItemProcessingStrategy {
         } else if (item.getQuality() < COMMON_ITEM_MIN_QUALITY) {
             item.setQuality(COMMON_ITEM_MIN_QUALITY);
         }
-
-        item.decreaseSellIn();
     }
 }

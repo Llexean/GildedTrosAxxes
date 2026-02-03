@@ -14,6 +14,7 @@ public class GoodWineItemProcessingStrategy extends CommonItemProcessingStrategy
     public void updateQuality(Item item) {
         item.increaseQuality(1);
         clampQuality(item);
+        item.decreaseSellIn();
     }
 
     @Override

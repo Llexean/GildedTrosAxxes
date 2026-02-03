@@ -14,6 +14,7 @@ public class SmellyItemProcessingStrategy extends CommonItemProcessingStrategy {
     public void updateQuality(Item item) {
         item.decreaseQuality(item.getSellIn() <= 0 ? 4 : 2);
         clampQuality(item);
+        item.decreaseSellIn();
     }
 
     @Override

@@ -20,6 +20,7 @@ public class BackstagePassesItemProcessingStrategy extends CommonItemProcessingS
             item.increaseQuality(1);
         }
         clampQuality(item);
+        item.decreaseSellIn();
     }
 
     @Override
