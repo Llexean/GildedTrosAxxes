@@ -1,10 +1,13 @@
 package com.gildedtros.gildedtros_spring_app.internal.updater;
 
+import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BackstagePassItemUpdater extends CommonItemUpdater {
+    static final String BACKSTAGE_PASSES_NAME_PREFIX = "Backstage passes for ";
+
     @Override
     public void updateQuality(Item item) {
         if (item.getSellIn() <= 0) {
@@ -17,5 +20,16 @@ public class BackstagePassItemUpdater extends CommonItemUpdater {
             item.increaseQuality(1);
         }
         clampQuality(item);
+    }
+
+    @Override
+    public Item validateOnCreate(ItemRequest itemRequest) {
+        if(!itemRequest.name().contains(BACKSTAGE_PASSES_NAME_PREFIX)) {
+            throw new IllegalArgumentException("Couldn't find valid Backstage Passes Prefix in given Item Name");
+        }
+
+        Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());
+        clampQuality(item);
+        return item;
     }
 }

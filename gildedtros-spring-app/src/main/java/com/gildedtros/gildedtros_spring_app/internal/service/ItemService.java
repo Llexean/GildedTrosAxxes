@@ -2,7 +2,6 @@ package com.gildedtros.gildedtros_spring_app.internal.service;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
-import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.repository.ItemRepository;
 import com.gildedtros.gildedtros_spring_app.internal.updaterfactory.ItemUpdaterFactory;
 import org.springframework.stereotype.Service;
@@ -25,8 +24,7 @@ public class ItemService {
     }
 
     public Item createItem(ItemRequest itemRequest) {
-        Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());
-        return itemRepository.save(item);
+        return itemRepository.save(itemUpdaterFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
     }
 
     public void updateAllItems() {
