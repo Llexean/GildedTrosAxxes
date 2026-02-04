@@ -26,7 +26,7 @@ public class BackstagePassesItemProcessingStrategy extends CommonItemProcessingS
     @Override
     public Item validateOnCreate(ItemRequest itemRequest) {
         if(!itemRequest.name().contains(BACKSTAGE_PASSES_NAME_PREFIX)) {
-            throw new IllegalArgumentException("Couldn't find valid Backstage Passes Prefix in given Item Name");
+            throw new IllegalArgumentException("Could not find valid Backstage Passes Prefix in given Item Name");
         }
 
         Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());
