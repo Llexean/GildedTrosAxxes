@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +19,9 @@ public class SmellyItemProcessingStrategy extends CommonItemProcessingStrategy {
     }
 
     @Override
-    public Item validateOnCreate(ItemRequest itemRequest) {
+    public Item validateOnCreate(ItemRequest itemRequest) throws InvalidItemNameException {
         if (!List.of(SMELLY_ITEM_NAME_LIST).contains(itemRequest.name())) {
-            throw new IllegalArgumentException("Invalid Smelly Item Name");
+            throw new InvalidItemNameException("Invalid Smelly Item Name");
         }
 
         Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());

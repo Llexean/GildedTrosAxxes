@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import org.springframework.stereotype.Component;
 
@@ -19,9 +20,9 @@ public class LegendaryItemProcessingStrategy extends CommonItemProcessingStrateg
     }
 
     @Override
-    public Item validateOnCreate(ItemRequest itemRequest) {
+    public Item validateOnCreate(ItemRequest itemRequest) throws InvalidItemNameException {
         if (!List.of(LEGENDARY_NAMES_LIST).contains(itemRequest.name())) {
-            throw new IllegalArgumentException("Invalid Legendary Item Name");
+            throw new InvalidItemNameException("Invalid Legendary Item Name");
         }
 
         Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());

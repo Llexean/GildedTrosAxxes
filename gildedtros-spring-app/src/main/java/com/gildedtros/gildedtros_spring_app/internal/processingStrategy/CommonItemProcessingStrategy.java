@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.processingStrategy;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import org.springframework.stereotype.Component;
 
@@ -20,16 +21,16 @@ public class CommonItemProcessingStrategy implements ItemProcessingStrategy {
     }
 
     @Override
-    public Item validateOnCreate(ItemRequest itemRequest) {
+    public Item validateOnCreate(ItemRequest itemRequest) throws InvalidItemNameException {
         List<String> reservedNames = new ArrayList<>();
         reservedNames.addAll(List.of(GoodWineItemProcessingStrategy.GOOD_WINE_NAME_LIST));
         reservedNames.addAll(List.of(SmellyItemProcessingStrategy.SMELLY_ITEM_NAME_LIST));
         reservedNames.addAll(List.of(LegendaryItemProcessingStrategy.LEGENDARY_NAMES_LIST));
 
         if (reservedNames.contains(itemRequest.name())) {
-            throw new IllegalArgumentException("Reserved names cannot be used for common item");
+            throw new InvalidItemNameException();
         } else if (itemRequest.name().contains(BackstagePassesItemProcessingStrategy.BACKSTAGE_PASSES_NAME_PREFIX)) {
-            throw new IllegalArgumentException("Common name cannot be prefixed with valid backstage passes prefix");
+            throw new InvalidItemNameException("Common name cannot be prefixed with valid backstage passes prefix");
         }
 
         Item item = new Item(itemRequest.name(), itemRequest.sellIn(), itemRequest.quality(), itemRequest.itemType());

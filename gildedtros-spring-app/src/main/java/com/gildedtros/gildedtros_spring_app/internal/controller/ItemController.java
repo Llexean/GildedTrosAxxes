@@ -6,7 +6,6 @@ import com.gildedtros.gildedtros_spring_app.internal.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -26,12 +25,9 @@ public class ItemController {
     }
 
     @PostMapping
-    public ResponseEntity<Item> createItem(@RequestBody ItemRequest itemRequest) {
-        try {
-            return new ResponseEntity<>(itemService.createItem(itemRequest), HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect name for given Item Type");
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Item createItem(@RequestBody ItemRequest itemRequest) {
+        return itemService.createItem(itemRequest);
     }
 
     @PutMapping

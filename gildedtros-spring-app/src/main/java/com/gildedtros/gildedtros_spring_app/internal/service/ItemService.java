@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.service;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.repository.ItemRepository;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategyFactory.ItemProcessingStrategyFactory;
@@ -23,12 +24,8 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Item createItem(ItemRequest itemRequest) throws IllegalArgumentException {
-        try {
-            return itemRepository.save(itemProcessingStrategyFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e);
-        }
+    public Item createItem(ItemRequest itemRequest) throws InvalidItemNameException {
+        return itemRepository.save(itemProcessingStrategyFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
     }
 
     public void updateAllItems() {
