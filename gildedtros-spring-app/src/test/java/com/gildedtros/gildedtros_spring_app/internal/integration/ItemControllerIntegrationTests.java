@@ -40,7 +40,7 @@ public class ItemControllerIntegrationTests {
         mockMvc.perform(post("")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(request)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value(request.name()))
                 .andExpect(jsonPath("$.sellIn").value(5))
                 .andExpect(jsonPath("$.quality").value(50))
@@ -56,5 +56,15 @@ public class ItemControllerIntegrationTests {
                 .andExpect(jsonPath("$[?(@.name=='Valid Item Name')].sellIn").value(request.sellIn() - 1))
                 .andExpect(jsonPath("$[?(@.name=='Valid Item Name')].quality").value(request.quality() - 1))
                 .andExpect(jsonPath("$[?(@.name=='Valid Item Name')].itemType").value(ItemType.COMMON.toString()));
+    }
+
+    @Test
+    public void throwExceptionWhenCreatingItemWithInvalidName() throws Exception {
+        ItemRequest request = new ItemRequest("Invalid Item Name", 5, 50, ItemType.LEGENDARY);
+
+        mockMvc.perform(post("")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(request)))
+                .andExpect(status().isBadRequest());
     }
 }
