@@ -23,8 +23,12 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Item createItem(ItemRequest itemRequest) {
-        return itemRepository.save(itemProcessingStrategyFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
+    public Item createItem(ItemRequest itemRequest) throws IllegalArgumentException {
+        try {
+            return itemRepository.save(itemProcessingStrategyFactory.get(itemRequest.itemType()).validateOnCreate(itemRequest));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 
     public void updateAllItems() {
