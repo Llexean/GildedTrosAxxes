@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.unit;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategy.BackstagePassesItemProcessingStrategy;
@@ -38,13 +39,13 @@ public class BackstagePassesItemProcessingStrategyTests {
     }
 
     @Test
-    public void backstagePassesItemWithoutValidNamePrefixWillThrowError() throws IllegalArgumentException {
+    public void backstagePassesItemWithoutValidNamePrefixWillThrowError() throws InvalidItemNameException {
         ItemRequest backstagePassesItemRequest = new ItemRequest(INVALID_BACKSTAGE_PASSES_NAME, 5, 50, ItemType.BACKSTAGE_PASS);
 
         try {
             backstagePassesItemProcessingStrategy.validateOnCreate(backstagePassesItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidItemNameException e) {
             assertEquals("Could not find valid Backstage Passes Prefix in given Item Name", e.getMessage());
         }
     }

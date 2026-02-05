@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.integration;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.repository.ItemRepository;
@@ -38,6 +39,6 @@ public class ItemServiceIntegrationTests {
     public void testInvalidNameThrowsErrorWhenCreating() {
         ItemRequest request = new ItemRequest("Invalid Item Name", 0, 80, ItemType.LEGENDARY);
 
-        assertThrows(IllegalArgumentException.class, () -> itemService.createItem(request));
+        assertThrows(InvalidItemNameException.class, () -> itemService.createItem(request));
     }
 }

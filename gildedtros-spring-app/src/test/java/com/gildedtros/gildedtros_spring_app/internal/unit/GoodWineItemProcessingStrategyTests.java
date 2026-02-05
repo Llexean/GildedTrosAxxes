@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.unit;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategy.GoodWineItemProcessingStrategy;
@@ -38,13 +39,13 @@ public class GoodWineItemProcessingStrategyTests {
     }
 
     @Test
-    public void goodWineItemWithoutValidNameWillThrowError() throws IllegalArgumentException {
+    public void goodWineItemWithoutValidNameWillThrowError() throws InvalidItemNameException {
         ItemRequest goodWineItemRequest = new ItemRequest(INVALID_GOOD_WINE_NAME, 5, 50, ItemType.GOOD_WINE);
 
         try {
             goodWineItemProcessingStrategy.validateOnCreate(goodWineItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidItemNameException e) {
             assertEquals("Invalid Good Wine Item Name", e.getMessage());
         }
     }

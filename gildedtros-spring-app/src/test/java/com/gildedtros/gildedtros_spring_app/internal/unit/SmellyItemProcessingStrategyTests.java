@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.unit;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategy.SmellyItemProcessingStrategy;
@@ -38,13 +39,13 @@ public class SmellyItemProcessingStrategyTests {
     }
 
     @Test
-    public void smellyItemWithoutValidNameWillThrowError() throws IllegalArgumentException {
+    public void smellyItemWithoutValidNameWillThrowError() throws InvalidItemNameException {
         ItemRequest smellyItemRequest = new ItemRequest(INVALID_SMELLY_ITEM_NAME, 5, 50, ItemType.SMELLY);
 
         try {
             smellyItemProcessingStrategy.validateOnCreate(smellyItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidItemNameException e) {
             assertEquals("Invalid Smelly Item Name", e.getMessage());
         }
     }

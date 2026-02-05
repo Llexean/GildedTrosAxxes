@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.unit;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategy.CommonItemProcessingStrategy;
@@ -40,25 +41,25 @@ public class CommonItemProcessingStrategyTests {
     }
 
     @Test
-    public void commonItemWithReservedNameWillThrowError() throws IllegalArgumentException {
+    public void commonItemWithReservedNameWillThrowError() throws InvalidItemNameException {
         ItemRequest commonItemRequest = new ItemRequest(RESERVED_NAME, 5, 50, ItemType.COMMON);
 
         try {
             commonItemProcessingStrategy.validateOnCreate(commonItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals("Reserved names cannot be used for common item", e.getMessage());
+        } catch (InvalidItemNameException e) {
+            assertEquals("Invalid Item Name Provided", e.getMessage());
         }
     }
 
     @Test
-    public void commonItemWithBackstagePassPrefixNameWillThrowError() throws IllegalArgumentException {
+    public void commonItemWithBackstagePassPrefixNameWillThrowError() throws InvalidItemNameException {
         ItemRequest commonItemRequest = new ItemRequest(BACKSTAGE_PASS_NAME_PREFIX + COMMON_ITEM_NAME, 5, 50, ItemType.COMMON);
 
         try {
             commonItemProcessingStrategy.validateOnCreate(commonItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidItemNameException e) {
             assertEquals("Common name cannot be prefixed with valid backstage passes prefix", e.getMessage());
         }
     }

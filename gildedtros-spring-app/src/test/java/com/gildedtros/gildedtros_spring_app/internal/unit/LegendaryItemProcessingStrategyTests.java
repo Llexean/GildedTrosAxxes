@@ -1,6 +1,7 @@
 package com.gildedtros.gildedtros_spring_app.internal.unit;
 
 import com.gildedtros.gildedtros_spring_app.internal.dto.ItemRequest;
+import com.gildedtros.gildedtros_spring_app.internal.exception.InvalidItemNameException;
 import com.gildedtros.gildedtros_spring_app.internal.model.Item;
 import com.gildedtros.gildedtros_spring_app.internal.model.ItemType;
 import com.gildedtros.gildedtros_spring_app.internal.processingStrategy.LegendaryItemProcessingStrategy;
@@ -38,13 +39,13 @@ public class LegendaryItemProcessingStrategyTests {
     }
 
     @Test
-    public void legendaryItemWithoutValidNameWillThrowError() throws IllegalArgumentException {
+    public void legendaryItemWithoutValidNameWillThrowError() throws InvalidItemNameException {
         ItemRequest legendaryItemRequest = new ItemRequest(INVALID_LEGENDARY_ITEM_NAME, 0, 80, ItemType.LEGENDARY);
 
         try {
             legendaryItemProcessingStrategy.validateOnCreate(legendaryItemRequest);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidItemNameException e) {
             assertEquals("Invalid Legendary Item Name", e.getMessage());
         }
     }
